@@ -1,0 +1,7 @@
+git init
+git config user.name "Ana Novaković"
+git config user.email "ana2novakovic@gmail.com"
+git remote add origin git@gitlab.com:username/os.git
+git add .
+git commit -m "Pocetno stanje"
+git push -u origin master
