@@ -138,6 +138,19 @@ void obradi_dogadjaj(int sig)
 void obradi_sigterm(int sig)
 {
 	printf("Primio signal SIGTERM, pospremam prije izlazska iz programa\n");
+	FILE *fp;
+
+        fp = fopen(dat_stat, "a");
+        if (!fp) {
+                printf("Ne mogu otvoriti %s\n",dat_stat);
+                exit(1);
+        }
+        if (fprintf(fp, "%d\n", broj) > 1) {
+                printf("Nije upisan broj u %s!\n", dat_stat);
+                exit(1);
+        }
+        fclose(fp);
+
 	nije_kraj = 0;
 }
 
