@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 {
 	int i, x;
 	if (argc < 3) {
-		printf("Koristenje: %s <status-datoteka> <datoteka-s-podacim>",
+		printf("Koristenje: %s status.txt obrada.txt",
 			argv[0]);
 		return 1;
 	}
