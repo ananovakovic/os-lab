@@ -103,7 +103,7 @@ int procitaj(int id, void *p, size_t koliko)
 	
 	dohvacanje = dohvati_blok(id, buffer);
 	//ako blok ne postoji, prekinuti s čitanjem i vratiti do sada procitano
-	if (dohvacanje == -1 )
+	if (blok_diska == -1 )
 		return koliko - jos;
 	else if ((vel_datoteke - dat_kazaljka)< (BLOCK_SIZE - dat_kazaljka % BLOCK_SIZE))
 		kopirati = vel_datoteke - dat_kazaljka;
@@ -146,28 +146,28 @@ int zapisi(int id, void *p, size_t koliko)
 	{
 		if (blok_diska == -1) 
 		{
-		//nađi slobodni blok i ažuriraj blokovi_datoteke
+		//nađi slobodni blok 
 		blok_diska = slobodni_blokovi[BLOCKS];
 		}
-		else //nema
+		else if (slobodni_blokovi[BLOCKS] == -1) //nema
 		exit (1);
 	//ako blok ne postoji (-1), potražiti slobodni blok i dati ga datoteci;
 	dohvacanje = dohvati_blok(id, buffer);
-	if (dohvacanje == -1 )
-		exit(1);
 	//kopiraj iz p u buffer+datotecna_tablica[id].kazaljka 'koliko' bajtova
 	if (jos < BLOCK_SIZE - dat_kazaljka % BLOCK_SIZE)
 		kopirati = jos;
 	else
 		kopirati = BLOCK_SIZE - dat_kazaljka % BLOCK_SIZE;
+
 	novo = pohrani_blok(id, datotecna_tablica[id].ime);
+	//pohrani blok na disk, povećaj kazaljku
 	p += kopirati;
 	dat_kazaljka += kopirati;
 	jos -= kopirati;
 	blok_dat++;
+	
 }
-	if (dat_kazaljka > vel_datoteke) vel_datoteke = dat_kazaljka;
-	else 
+	
 	return koliko - jos;
 }
 	//blok_datoteke = datotecna_tablica[id].kazaljka / BLOCK_SIZE
